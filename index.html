@@ -144,6 +144,7 @@
         .tab { flex: 1; min-width: 100px; padding: 12px 16px; text-align: center; cursor: pointer; border: none; background: transparent; font-size: 0.95em; font-weight: 600; color: #999; transition: all 0.3s; white-space: nowrap; }
         .tab:hover { background: #3a3a3a; color: #D4AF37; }
         .tab.active { background: #1a1a1a; color: #D4AF37; border-bottom: 3px solid #D4AF37; }
+        .tab.hidden { display: none; }
         .main-content { flex: 1; overflow-y: auto; padding-bottom: 50px; }
         .content { padding: 25px; display: none; color: #f0f0f0; }
         .content.active { display: block; }
@@ -159,6 +160,9 @@
         .btn:hover { transform: translateY(-2px); box-shadow: 0 6px 16px rgba(184, 134, 11, 0.5); }
         .btn-secondary { background: #3a3a3a; color: #D4AF37; padding: 10px 15px; font-size: 0.9em; margin-left: 10px; }
         .btn-success { background: linear-gradient(135deg, #4CAF50 0%, #388E3C 100%); }
+        .btn-edit { background: #2196F3; padding: 6px 12px; font-size: 0.85em; margin-left: 5px; }
+        .btn-edit:hover { background: #0b7dda; }
+        .btn-cancel { background: #6c757d; padding: 6px 12px; font-size: 0.85em; margin-left: 5px; }
         .transaction-item { background: #2d2d2d; padding: 15px; margin-bottom: 10px; border-radius: 8px; display: grid; grid-template-columns: 1fr auto; gap: 10px; align-items: center; border-left: 4px solid #B8860B; }
         .transaction-item.income { border-left-color: #4CAF50; }
         .transaction-item.expense { border-left-color: #FF6B6B; }
@@ -192,33 +196,46 @@
             bottom: 15px; 
             right: 20px; 
             font-size: 0.8em; 
-            color: #B8860B; 
+            color: #D4AF37;
             display: flex; 
             align-items: center; 
             gap: 8px; 
             z-index: 1000;
-            background: rgba(0, 0, 0, 0.4);
-            border: 1px solid rgba(212, 175, 55, 0.3);
-            padding: 12px 20px;
-            border-radius: 8px;
-            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3), 0 0 20px rgba(212, 175, 55, 0.2);
+            padding: 12px 16px;
+            background: rgba(0, 0, 0, 0.5);
             backdrop-filter: blur(10px);
+            border: 1px solid rgba(184, 134, 11, 0.4);
+            border-radius: 12px;
+            box-shadow: 0 8px 32px rgba(184, 134, 11, 0.2), inset 0 0 20px rgba(184, 134, 11, 0.1);
             transition: all 0.3s ease;
         }
         .footer:hover {
-            background: rgba(0, 0, 0, 0.5);
-            border-color: rgba(212, 175, 55, 0.5);
-            box-shadow: 0 12px 24px rgba(0, 0, 0, 0.4), 0 0 30px rgba(212, 175, 55, 0.3);
+            background: rgba(0, 0, 0, 0.6);
+            border-color: rgba(184, 134, 11, 0.6);
+            box-shadow: 0 12px 40px rgba(184, 134, 11, 0.3), inset 0 0 20px rgba(184, 134, 11, 0.15);
         }
         .footer-text { white-space: nowrap; }
         .email-icon { width: 20px; height: 20px; display: inline-flex; align-items: center; justify-content: center; cursor: pointer; position: relative; transition: all 0.3s; }
-        .email-icon:hover { color: #D4AF37; transform: scale(1.2); }
-        .email-tooltip { position: absolute; bottom: 130%; right: 0; background: #1a1a1a; color: #D4AF37; padding: 8px 12px; border-radius: 6px; font-size: 0.85em; white-space: nowrap; opacity: 0; visibility: hidden; transition: all 0.3s; pointer-events: none; box-shadow: 0 4px 12px rgba(0,0,0,0.5), 0 0 20px rgba(184, 134, 11, 0.3); border: 1px solid #B8860B; }
-        .email-tooltip::after { content: ''; position: absolute; top: 100%; right: 10px; border: 5px solid transparent; border-top-color: #1a1a1a; }
+        .email-icon:hover { color: #D4AF37; transform: scale(1.2) rotate(10deg); }
+        .email-tooltip { position: absolute; bottom: 130%; right: 0; background: rgba(26, 26, 26, 0.95); color: #D4AF37; padding: 8px 12px; border-radius: 6px; font-size: 0.85em; white-space: nowrap; opacity: 0; visibility: hidden; transition: all 0.3s; pointer-events: none; box-shadow: 0 4px 12px rgba(0,0,0,0.5), 0 0 20px rgba(184, 134, 11, 0.3); border: 1px solid #B8860B; }
+        .email-tooltip::after { content: ''; position: absolute; top: 100%; right: 10px; border: 5px solid transparent; border-top-color: rgba(26, 26, 26, 0.95); }
         .email-icon:hover .email-tooltip { opacity: 1; visibility: visible; }
-        @media (max-width: 1199px) { .header { padding: 18px; gap: 12px; } .header-logo { width: 85px; height: 85px; } .header-title .title-line-1 { font-size: 1.0em; } .header-title .title-line-2 { font-size: 0.9em; } .header-title .title-line-3 { font-size: 0.85em; } .content { padding: 20px; } .header-right { padding: 10px 12px; gap: 0; } .user-section { gap: 10px; } .footer { bottom: 12px; right: 15px; padding: 10px 16px; font-size: 0.75em; } }
-        @media (max-width: 767px) { body { padding: 0; } .container { margin: 0; border-radius: 0; } .header { flex-direction: column; align-items: flex-start; padding: 15px; gap: 12px; } .header-left { width: 100%; } .header-logo { width: 75px; height: 75px; } .header-title .title-line-1 { font-size: 0.9em; } .header-title .title-line-2 { font-size: 0.8em; } .header-title .title-line-3 { font-size: 0.75em; } .header-right { width: 100%; flex-direction: column; align-items: flex-start; border: none; padding: 12px 0; gap: 8px; } .user-section { border-right: none; padding-right: 0; width: 100%; } .logout-section { width: 100%; border-left: none; padding-left: 0; } .logout-btn { width: 100%; justify-content: center; } .tab { font-size: 0.85em; padding: 10px 12px; } .content { padding: 15px; } .dashboard { grid-template-columns: 1fr; } .footer { bottom: 10px; right: 10px; padding: 10px 14px; font-size: 0.7em; } }
-        @media (max-width: 480px) { .header { padding: 12px; gap: 10px; } .header-logo { width: 65px; height: 65px; } .header-title .title-line-1 { font-size: 0.8em; } .header-title .title-line-2 { font-size: 0.75em; } .header-title .title-line-3 { font-size: 0.7em; } .tab { font-size: 0.8em; padding: 8px 10px; } .content { padding: 12px; } .card { padding: 15px; } .card .amount { font-size: 1.5em; } .form-group input { font-size: 16px; } .btn { width: 100%; } .table { font-size: 0.8em; } h2 { font-size: 1.2em; } .user-icon { font-size: 1em; } .user-name { font-size: 0.85em; } .logout-btn { padding: 6px 10px; font-size: 0.75em; } .footer { bottom: 8px; right: 8px; padding: 8px 12px; font-size: 0.65em; } .user-role { padding: 4px 8px; font-size: 0.7em; } }
+        .report-filter { background: #2d2d2d; padding: 20px; border-radius: 12px; margin-bottom: 25px; border: 1px solid #3a3a3a; }
+        .filter-buttons { display: flex; gap: 10px; margin-bottom: 20px; flex-wrap: wrap; }
+        .filter-btn { padding: 10px 20px; border: 2px solid #3a3a3a; background: transparent; color: #999; border-radius: 8px; cursor: pointer; font-size: 0.95em; font-weight: 600; transition: all 0.3s; }
+        .filter-btn:hover { border-color: #B8860B; color: #D4AF37; }
+        .filter-btn.active { background: linear-gradient(135deg, #B8860B 0%, #8B6914 100%); color: white; border-color: #B8860B; }
+        .filter-inputs { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px; }
+        .report-summary { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px; margin-bottom: 20px; }
+        .summary-card { background: #2d2d2d; padding: 20px; border-radius: 12px; border-left: 4px solid #B8860B; }
+        .summary-card.income { border-left-color: #4CAF50; }
+        .summary-card.expense { border-left-color: #FF6B6B; }
+        .summary-card.surplus { border-left-color: #D4AF37; }
+        .summary-card h4 { color: #999; font-size: 0.85em; margin-bottom: 8px; text-transform: uppercase; }
+        .summary-card .value { color: #D4AF37; font-size: 1.8em; font-weight: bold; }
+        .summary-card .value.income { color: #4CAF50; }
+        .summary-card .value.expense { color: #FF6B6B; }
+        @media (max-width: 767px) { .tab.hidden { display: none !important; } }
     </style>
 </head>
 <body id="appBody">
@@ -252,11 +269,20 @@
             <form id="loginForm" class="login-form">
                 <div class="form-group">
                     <label>Username</label>
-                    <input type="text" id="loginUsername" placeholder="admin" required>
+                    <input type="text" id="loginUsername" placeholder="Masukkan username" required>
                 </div>
                 <div class="form-group">
                     <label>Password</label>
-                    <input type="password" id="loginPassword" placeholder="admin" required>
+                    <input type="password" id="loginPassword" placeholder="Masukkan password" required>
+                </div>
+                <div class="form-group">
+                    <label>Role</label>
+                    <select id="loginRole" required>
+                        <option value="">-- Pilih Role --</option>
+                        <option value="Admin">👑 Admin</option>
+                        <option value="Manager">📋 Manager</option>
+                        <option value="Viewer">👁️ Viewer</option>
+                    </select>
                 </div>
                 <button type="submit" class="btn" style="width: 100%;">🔓 Login</button>
             </form>
@@ -264,9 +290,9 @@
             <div style="margin-top: 30px; padding-top: 20px; border-top: 1px solid #3a3a3a;">
                 <h3 style="margin-top: 0; font-size: 0.95em; color: #D4AF37;">Test Credentials:</h3>
                 <p style="font-size: 0.85em; margin-bottom: 0; line-height: 1.6; color: #999;">
-                    <strong>Admin:</strong> admin / admin<br>
-                    <strong>Manager:</strong> manager / manager<br>
-                    <strong>Viewer:</strong> viewer / viewer
+                    <strong>Admin:</strong> admin / admin / Admin<br>
+                    <strong>Manager:</strong> manager / manager / Manager<br>
+                    <strong>Viewer:</strong> viewer / viewer / Viewer
                 </p>
             </div>
         </div>
@@ -302,9 +328,9 @@
         </div>
         <div class="tabs">
             <button class="tab active" onclick="switchTab('dashboard')">📊 Dashboard</button>
-            <button class="tab" onclick="switchTab('transaksi')">➕ Transaksi</button>
+            <button class="tab" id="tabTransaksi" onclick="switchTab('transaksi')">➕ Transaksi</button>
             <button class="tab" onclick="switchTab('laporan')">📈 Laporan</button>
-            <button class="tab" onclick="switchTab('settings')">⚙️ Settings</button>
+            <button class="tab" id="tabSettings" onclick="switchTab('settings')">⚙️ Settings</button>
         </div>
         <div class="main-content">
             <div id="dashboard" class="content active">
@@ -330,7 +356,44 @@
             </div>
             <div id="laporan" class="content">
                 <h2>📊 Laporan Keuangan</h2>
-                <div class="dashboard"><div class="card"><h3>Surplus/Defisit</h3><div class="amount" id="surplusDeficit">Rp 0</div></div></div>
+
+                <div class="report-filter">
+                    <div class="filter-buttons">
+                        <button class="filter-btn active" onclick="setReportType('daily')">📅 Harian</button>
+                        <button class="filter-btn" onclick="setReportType('monthly')">📆 Bulanan</button>
+                        <button class="filter-btn" onclick="setReportType('yearly')">📊 Tahunan</button>
+                    </div>
+                    <div class="filter-inputs">
+                        <div class="form-group" id="dailyFilter">
+                            <label>Pilih Tanggal</label>
+                            <input type="date" id="reportDate" onchange="updateReport()">
+                        </div>
+                        <div class="form-group" id="monthlyFilter" style="display:none;">
+                            <label>Pilih Bulan</label>
+                            <input type="month" id="reportMonth" onchange="updateReport()">
+                        </div>
+                        <div class="form-group" id="yearlyFilter" style="display:none;">
+                            <label>Pilih Tahun</label>
+                            <select id="reportYear" onchange="updateReport()"></select>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="report-summary">
+                    <div class="summary-card income">
+                        <h4>Total Penerimaan</h4>
+                        <div class="value income" id="reportIncome">Rp 0</div>
+                    </div>
+                    <div class="summary-card expense">
+                        <h4>Total Pengeluaran</h4>
+                        <div class="value expense" id="reportExpense">Rp 0</div>
+                    </div>
+                    <div class="summary-card surplus">
+                        <h4>Surplus/Defisit</h4>
+                        <div class="value" id="reportSurplus">Rp 0</div>
+                    </div>
+                </div>
+
                 <div id="reportDetails"></div>
             </div>
             <div id="settings" class="content">
@@ -358,7 +421,7 @@
             { id: 1, username: 'admin', password: 'admin', role: 'Admin' },
             { id: 2, username: 'manager', password: 'manager', role: 'Manager' },
             { id: 3, username: 'viewer', password: 'viewer', role: 'Viewer' }
-        ];
+        ], reportType = 'daily';
         const KATEGORI = {
             Penerimaan: ['Sumbangan/Donasi', 'Hibah/Grant', 'Pendapatan Program', 'Pendapatan Investasi', 'Pendapatan Lainnya'],
             Pengeluaran: ['Program Utama', 'Program Pendidikan', 'Program Kesehatan', 'Program Sosial', 'Beban Penggajian', 'Beban Administrasi', 'Beban Operasional', 'Beban Lainnya']
@@ -368,28 +431,45 @@
             'Manager': '📋',
             'Viewer': '👁️'
         };
+
         document.addEventListener('DOMContentLoaded', function() {
             loadFromStorage();
+            initYearOptions();
+            document.getElementById('reportDate').valueAsDate = new Date();
+            const now = new Date();
+            document.getElementById('reportMonth').value = `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, '0')}`;
+            document.getElementById('reportYear').value = now.getFullYear();
+
             document.getElementById('loginForm').addEventListener('submit', function(e) {
                 e.preventDefault();
                 const username = document.getElementById('loginUsername').value.trim();
                 const password = document.getElementById('loginPassword').value.trim();
-                const user = users.find(u => u.username === username && u.password === password);
+                const role = document.getElementById('loginRole').value;
+
+                if (!role) {
+                    document.getElementById('loginError').textContent = '❌ Pilih role terlebih dahulu!';
+                    document.getElementById('loginError').style.display = 'block';
+                    return;
+                }
+
+                const user = users.find(u => u.username === username && u.password === password && u.role === role);
                 if (user) {
-                    currentUser = user;
-                    localStorage.setItem('currentUser', JSON.stringify(user));
+                    currentUser = { ...user };
+                    localStorage.setItem('currentUser', JSON.stringify(currentUser));
                     document.getElementById('loginScreen').style.display = 'none';
                     document.getElementById('mainApp').style.display = 'flex';
                     document.getElementById('currentUser').textContent = user.username.toUpperCase();
                     const icon = roleIcons[user.role] || '•';
                     document.getElementById('currentRole').innerHTML = `<span class="user-role role-${user.role.toLowerCase()}">${icon} ${user.role}</span>`;
+                    updateAccessControl();
                     updateDashboard();
                     renderTransactions();
                 } else {
-                    document.getElementById('loginError').textContent = '❌ Username atau password salah!';
+                    document.getElementById('loginError').textContent = '❌ Username, password, atau role salah!';
                     document.getElementById('loginError').style.display = 'block';
                 }
             });
+
             document.getElementById('typeSelect').addEventListener('change', function() {
                 const select = document.getElementById('categorySelect');
                 select.innerHTML = '<option value="">Pilih kategori</option>';
@@ -400,8 +480,10 @@
                     select.appendChild(opt);
                 });
             });
+
             document.getElementById('date').valueAsDate = new Date();
             document.getElementById('typeSelect').dispatchEvent(new Event('change'));
+
             document.getElementById('transactionForm').addEventListener('submit', function(e) {
                 e.preventDefault();
                 const trans = {
@@ -412,6 +494,7 @@
                     category: document.getElementById('categorySelect').value,
                     description: document.getElementById('description').value,
                     user: currentUser.username,
+                    userId: currentUser.id,
                     timestamp: new Date().toISOString()
                 };
                 transactions.push(trans);
@@ -421,8 +504,88 @@
                 alert('✅ Transaksi disimpan!');
                 switchTab('dashboard');
             });
+
             renderUsersList();
         });
+
+        function updateAccessControl() {
+            const isAdmin = currentUser.role === 'Admin';
+            const isManager = currentUser.role === 'Manager';
+            const isViewer = currentUser.role === 'Viewer';
+
+            // Hide/Show Tabs
+            document.getElementById('tabTransaksi').classList.toggle('hidden', isViewer);
+            document.getElementById('tabSettings').classList.toggle('hidden', !isAdmin);
+        }
+
+        function initYearOptions() {
+            const select = document.getElementById('reportYear');
+            const currentYear = new Date().getFullYear();
+            for (let year = currentYear; year >= currentYear - 10; year--) {
+                const opt = document.createElement('option');
+                opt.value = year;
+                opt.textContent = year;
+                select.appendChild(opt);
+            }
+        }
+
+        function setReportType(type) {
+            reportType = type;
+            document.querySelectorAll('.filter-btn').forEach(btn => btn.classList.remove('active'));
+            event.target.classList.add('active');
+
+            document.getElementById('dailyFilter').style.display = type === 'daily' ? 'block' : 'none';
+            document.getElementById('monthlyFilter').style.display = type === 'monthly' ? 'block' : 'none';
+            document.getElementById('yearlyFilter').style.display = type === 'yearly' ? 'block' : 'none';
+
+            updateReport();
+        }
+
+        function updateReport() {
+            let filtered = [];
+
+            if (reportType === 'daily') {
+                const date = document.getElementById('reportDate').value;
+                filtered = transactions.filter(t => t.date === date);
+            } else if (reportType === 'monthly') {
+                const month = document.getElementById('reportMonth').value;
+                filtered = transactions.filter(t => t.date.startsWith(month));
+            } else if (reportType === 'yearly') {
+                const year = document.getElementById('reportYear').value;
+                filtered = transactions.filter(t => t.date.startsWith(year));
+            }
+
+            const income = filtered.filter(t => t.type === 'Penerimaan').reduce((s, t) => s + t.amount, 0);
+            const expense = filtered.filter(t => t.type === 'Pengeluaran').reduce((s, t) => s + t.amount, 0);
+            const surplus = income - expense;
+
+            document.getElementById('reportIncome').textContent = formatCurrency(income);
+            document.getElementById('reportExpense').textContent = formatCurrency(expense);
+            document.getElementById('reportSurplus').textContent = formatCurrency(surplus);
+            document.getElementById('reportSurplus').className = 'value ' + (surplus >= 0 ? 'income' : 'expense');
+
+            let html = '';
+            if (filtered.length === 0) {
+                html = '<p style="text-align:center;color:#666;padding:40px;">Tidak ada transaksi untuk periode ini</p>';
+            } else {
+                filtered.sort((a,b) => new Date(b.date) - new Date(a.date)).forEach(t => {
+                    html += `<div class="transaction-item ${t.type === 'Penerimaan' ? 'income' : 'expense'}">
+                        <div class="transaction-info">
+                            <h4>${t.category}</h4>
+                            <p>${t.description} | User: <strong>${t.user}</strong></p>
+                            <p><small>${new Date(t.date).toLocaleDateString('id-ID')}</small></p>
+                        </div>
+                        <div style="display: flex; gap: 8px; align-items: center;">
+                            <span class="transaction-amount ${t.type === 'Penerimaan' ? 'income' : 'expense'}">
+                                ${t.type === 'Penerimaan' ? '+' : '-'} ${formatCurrency(t.amount)}
+                            </span>
+                        </div>
+                    </div>`;
+                });
+            }
+            document.getElementById('reportDetails').innerHTML = html;
+        }
+
         function logout() {
             currentUser = null;
             localStorage.removeItem('currentUser');
@@ -430,6 +593,7 @@
             document.getElementById('mainApp').style.display = 'none';
             document.getElementById('loginForm').reset();
         }
+
         function switchTab(tabName) {
             document.querySelectorAll('.content').forEach(c => c.style.display = 'none');
             document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
@@ -439,21 +603,15 @@
                 updateDashboard();
                 renderTransactions();
             } else if (tabName === 'laporan') {
-                const income = transactions.filter(t => t.type === 'Penerimaan').reduce((s, t) => s + t.amount, 0);
-                const expense = transactions.filter(t => t.type === 'Pengeluaran').reduce((s, t) => s + t.amount, 0);
-                const surplus = income - expense;
-                document.getElementById('surplusDeficit').textContent = formatCurrency(surplus);
-                let html = '<div style="background: #2d2d2d; padding: 20px; border-radius: 8px; border-left: 4px solid #B8860B;">';
-                html += `<p><strong>Total Penerimaan:</strong> <span style="color: #4CAF50;">${formatCurrency(income)}</span></p>`;
-                html += `<p><strong>Total Pengeluaran:</strong> <span style="color: #FF6B6B;">${formatCurrency(expense)}</span></p>`;
-                html += `<p style="border-top: 1px solid #3a3a3a; padding-top: 10px; margin-top: 10px;"><strong>Surplus/Defisit:</strong> <span style="color: ${surplus >= 0 ? '#4CAF50' : '#FF6B6B'};">${formatCurrency(surplus)}</span></p>`;
-                document.getElementById('reportDetails').innerHTML = html + '</div>';
+                updateReport();
             }
         }
+
         function switchSubTab(tabName) {
             document.querySelectorAll('.sub-content').forEach(c => c.style.display = 'none');
             document.getElementById(tabName).style.display = 'block';
         }
+
         function updateDashboard() {
             const income = transactions.filter(t => t.type === 'Penerimaan').reduce((s, t) => s + t.amount, 0);
             const expense = transactions.filter(t => t.type === 'Pengeluaran').reduce((s, t) => s + t.amount, 0);
@@ -462,6 +620,7 @@
             document.getElementById('totalIncome').textContent = formatCurrency(income);
             document.getElementById('totalExpense').textContent = formatCurrency(expense);
         }
+
         function renderTransactions() {
             const list = document.getElementById('transactionList');
             list.innerHTML = '';
@@ -470,24 +629,53 @@
                 return;
             }
             [...transactions].sort((a,b) => new Date(b.date) - new Date(a.date)).slice(0, 10).forEach(t => {
+                const canEdit = currentUser.role === 'Admin' || (currentUser.role === 'Manager' && t.userId === currentUser.id);
                 const item = document.createElement('div');
                 item.className = `transaction-item ${t.type === 'Penerimaan' ? 'income' : 'expense'}`;
                 item.innerHTML = `
                     <div class="transaction-info">
                         <h4>${t.category}</h4>
-                        <p>${t.description}</p>
-                        <p><small>${new Date(t.date).toLocaleDateString('id-ID')} | ${t.user}</small></p>
+                        <p>${t.description} | User: <strong>${t.user}</strong></p>
+                        <p><small>${new Date(t.date).toLocaleDateString('id-ID')}</small></p>
                     </div>
                     <div style="display: flex; gap: 8px; align-items: center;">
                         <span class="transaction-amount ${t.type === 'Penerimaan' ? 'income' : 'expense'}">
                             ${t.type === 'Penerimaan' ? '+' : '-'} ${formatCurrency(t.amount)}
                         </span>
-                        ${currentUser.role === 'Admin' ? `<button class="btn-delete" onclick="transactions=transactions.filter(x=>x.id!=={t.id});saveToStorage();renderTransactions()">🗑️</button>` : ''}
+                        ${canEdit ? `<button class="btn-edit" onclick="editTransaction(${t.id})">✏️ Edit</button>` : ''}
+                        ${currentUser.role === 'Admin' ? `<button class="btn-delete" onclick="deleteTransaction(${t.id})">🗑️ Hapus</button>` : ''}
                     </div>
                 `;
                 list.appendChild(item);
             });
         }
+
+        function editTransaction(id) {
+            const trans = transactions.find(t => t.id === id);
+            if (!trans) return;
+
+            const newAmount = prompt('Nominal baru (Rp):', trans.amount);
+            if (!newAmount) return;
+
+            const newDesc = prompt('Keterangan baru:', trans.description);
+            if (!newDesc) return;
+
+            trans.amount = parseInt(newAmount);
+            trans.description = newDesc;
+            saveToStorage();
+            renderTransactions();
+            alert('✅ Transaksi diperbarui!');
+        }
+
+        function deleteTransaction(id) {
+            if (confirm('Hapus transaksi ini?')) {
+                transactions = transactions.filter(t => t.id !== id);
+                saveToStorage();
+                renderTransactions();
+                alert('✅ Transaksi dihapus!');
+            }
+        }
+
         function renderUsersList() {
             const tbody = document.getElementById('usersList');
             tbody.innerHTML = '';
@@ -498,18 +686,31 @@
                     <td><strong>${u.username}</strong></td>
                     <td><span class="user-role role-${u.role.toLowerCase()}">${icon} ${u.role}</span></td>
                     <td><code>${u.password}</code></td>
-                    <td>${currentUser && currentUser.role === 'Admin' && u.username !== currentUser.username ? `<button class="btn-delete" onclick="users=users.filter(x=>x.id!=={u.id});saveToStorage();renderUsersList()">Hapus</button>` : 'N/A'}</td>
+                    <td>${currentUser && currentUser.role === 'Admin' && u.username !== currentUser.username ? `<button class="btn-delete" onclick="deleteUser(${u.id})">Hapus</button>` : 'N/A'}</td>
                 `;
                 tbody.appendChild(tr);
             });
         }
+
+        function deleteUser(id) {
+            if (confirm('Hapus user ini?')) {
+                users = users.filter(u => u.id !== id);
+                saveToStorage();
+                renderUsersList();
+                alert('✅ User dihapus!');
+            }
+        }
+
         function showAddUserForm() {
-            const username = prompt('Username:');
+            const username = prompt('Username baru:');
             if (!username) return;
             const password = prompt('Password:');
             if (!password) return;
             const role = prompt('Role (Admin/Manager/Viewer):');
-            if (!role) return;
+            if (!role || !['Admin', 'Manager', 'Viewer'].includes(role)) {
+                alert('Role harus Admin, Manager, atau Viewer');
+                return;
+            }
             if (users.find(u => u.username === username)) {
                 alert('Username sudah ada');
                 return;
@@ -517,12 +718,15 @@
             users.push({ id: Date.now(), username, password, role });
             saveToStorage();
             renderUsersList();
+            alert('✅ User ditambahkan!');
         }
+
         function exportToJSON() {
             const data = {
                 transactions: transactions,
                 exportDate: new Date().toISOString(),
-                exportedBy: currentUser.username
+                exportedBy: currentUser.username,
+                exporterRole: currentUser.role
             };
             const json = JSON.stringify(data, null, 2);
             const blob = new Blob([json], { type: 'application/json' });
@@ -531,6 +735,7 @@
             a.download = `export_${new Date().toISOString().split('T')[0]}.json`;
             a.click();
         }
+
         function clearAllData() {
             if (confirm('Yakin hapus semua data? Tidak bisa dikembalikan!')) {
                 transactions = [];
@@ -540,10 +745,12 @@
                 alert('✅ Semua data dihapus');
             }
         }
+
         function saveToStorage() {
             localStorage.setItem('transactions', JSON.stringify(transactions));
             localStorage.setItem('users', JSON.stringify(users));
         }
+
         function loadFromStorage() {
             const t = localStorage.getItem('transactions');
             const u = localStorage.getItem('users');
@@ -561,9 +768,11 @@
                     document.getElementById('mainApp').style.display = 'flex';
                     const icon = roleIcons[currentUser.role] || '•';
                     document.getElementById('currentRole').innerHTML = `<span class="user-role role-${currentUser.role.toLowerCase()}">${icon} ${currentUser.role}</span>`;
+                    updateAccessControl();
                 } catch (e) {}
             }
         }
+
         function formatCurrency(amount) {
             return new Intl.NumberFormat('id-ID', { style: 'currency', currency: 'IDR', minimumFractionDigits: 0 }).format(amount);
         }
