@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Keuangan APII DPW Jabodetabek</title>
+    <title>Aplikasi Pencatatan Keuangan - APII DPW Jabodetabek</title>
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body {
@@ -24,10 +24,28 @@
             background: linear-gradient(135deg, #D4AF37 0%, #C9A961 100%);
             color: white;
             padding: 30px;
-            text-align: center;
+            display: flex;
+            align-items: center;
+            gap: 30px;
         }
-        .header h1 { font-size: 2em; margin-bottom: 10px; }
-        .header p { opacity: 0.9; font-size: 1.1em; }
+        .header-logo {
+            width: 80px;
+            height: 80px;
+            background: white;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2.5em;
+            flex-shrink: 0;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+        .header h1 {
+            font-size: 1.8em;
+            line-height: 1.3;
+            color: white;
+            margin: 0;
+        }
         .tabs {
             display: flex;
             background: #f8f9fa;
@@ -45,14 +63,22 @@
             color: #6c757d;
             transition: all 0.3s;
         }
+        .tab:hover {
+            background: #e9ecef;
+        }
         .tab.active {
             background: white;
             color: #D4AF37;
             border-bottom: 3px solid #D4AF37;
+            margin-bottom: -2px;
         }
-        .tab:hover { background: #e9ecef; }
-        .content { padding: 30px; display: none; }
-        .content.active { display: block; }
+        .content {
+            padding: 30px;
+            display: none;
+        }
+        .content.active {
+            display: block;
+        }
         .dashboard {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
@@ -66,8 +92,15 @@
             border-radius: 15px;
             box-shadow: 0 5px 15px rgba(0,0,0,0.2);
         }
-        .card h3 { font-size: 0.9em; opacity: 0.9; margin-bottom: 10px; }
-        .card .amount { font-size: 2em; font-weight: bold; }
+        .card h3 {
+            font-size: 0.9em;
+            opacity: 0.9;
+            margin-bottom: 10px;
+        }
+        .card .amount {
+            font-size: 2em;
+            font-weight: bold;
+        }
         .form-group {
             margin-bottom: 20px;
         }
@@ -104,7 +137,9 @@
             cursor: pointer;
             transition: transform 0.2s;
         }
-        .btn:hover { transform: translateY(-2px); }
+        .btn:hover {
+            transform: translateY(-2px);
+        }
         .transaction-list {
             margin-top: 30px;
         }
@@ -135,8 +170,12 @@
             font-size: 1.3em;
             font-weight: bold;
         }
-        .transaction-amount.income { color: #28a745; }
-        .transaction-amount.expense { color: #dc3545; }
+        .transaction-amount.income {
+            color: #28a745;
+        }
+        .transaction-amount.expense {
+            color: #dc3545;
+        }
         .btn-delete {
             background: #dc3545;
             color: white;
@@ -146,33 +185,66 @@
             cursor: pointer;
             margin-left: 10px;
         }
-        .btn-delete:hover { background: #c82333; }
+        .btn-delete:hover {
+            background: #c82333;
+        }
+        .report-section {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 8px;
+            margin-top: 20px;
+        }
+        .report-section h3 {
+            color: #333;
+            margin-bottom: 15px;
+        }
+        .report-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 10px 0;
+            border-bottom: 1px solid #dee2e6;
+        }
+        .report-item:last-child {
+            border-bottom: none;
+        }
+        h2 {
+            color: #333;
+            margin-bottom: 20px;
+        }
         @media (max-width: 768px) {
-            .dashboard { grid-template-columns: 1fr; }
-            .tabs { flex-direction: column; }
+            .dashboard {
+                grid-template-columns: 1fr;
+            }
+            .tabs {
+                flex-direction: column;
+            }
+            .header {
+                flex-direction: column;
+                text-align: center;
+            }
+            .header h1 {
+                font-size: 1.4em;
+            }
         }
     </style>
 </head>
 <body>
     <div class="container">
         <div class="header">
-            <div style="display: flex; align-items: center; gap: 30px; width: 100%;">
-                <div style="width: 80px; height: 80px; background: white; border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 2.5em; flex-shrink: 0; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
-                    💰
-                </div>
-                <div style="flex: 1;">
-                    <h1 style="font-size: 1.8em; line-height: 1.3; color: white; margin: 0;">Aplikasi Pencatatan Keuangan<br>Yayasan Apologet Islam Indonesia<br>Dewan Pimpinan Wilayah Jabodetabek</h1>
-                </div>
+            <div class="header-logo">💰</div>
+            <div>
+                <h1>Aplikasi Pencatatan Keuangan<br>Yayasan Apologet Islam Indonesia<br>Dewan Pimpinan Wilayah Jabodetabek</h1>
             </div>
         </div>
 
         <div class="tabs">
-            <button class="tab active" onclick="showTab('dashboard')">Dashboard</button>
-            <button class="tab" onclick="showTab('transaksi')">Tambah Transaksi</button>
-            <button class="tab" onclick="showTab('laporan')">Laporan</button>
+            <button class="tab active" onclick="switchTab('dashboard')">Dashboard</button>
+            <button class="tab" onclick="switchTab('transaksi')">Tambah Transaksi</button>
+            <button class="tab" onclick="switchTab('laporan')">Laporan</button>
         </div>
 
         <div id="dashboard" class="content active">
+            <h2>📊 Dashboard Keuangan</h2>
             <div class="dashboard">
                 <div class="card">
                     <h3>Aset Bersih</h3>
@@ -188,12 +260,12 @@
                 </div>
             </div>
 
-            <h2 style="margin-bottom: 20px;">📋 Daftar Transaksi Terbaru</h2>
+            <h2>📋 Daftar Transaksi Terbaru</h2>
             <div id="transactionList" class="transaction-list"></div>
         </div>
 
         <div id="transaksi" class="content">
-            <h2 style="margin-bottom: 20px;">➕ Tambah Transaksi Baru</h2>
+            <h2>➕ Tambah Transaksi Baru</h2>
             <form id="transactionForm">
                 <div class="form-group">
                     <label for="date">Tanggal</label>
@@ -204,14 +276,14 @@
                     <input type="number" id="amount" min="0" required>
                 </div>
                 <div class="form-group">
-                    <label for="type">Tipe</label>
+                    <label for="typeSelect">Tipe</label>
                     <select id="typeSelect" required>
                         <option value="Penerimaan">Penerimaan</option>
                         <option value="Pengeluaran">Pengeluaran</option>
                     </select>
                 </div>
                 <div class="form-group">
-                    <label for="category">Kategori</label>
+                    <label for="categorySelect">Kategori</label>
                     <select id="categorySelect" required>
                         <option value="">Pilih kategori</option>
                     </select>
@@ -225,19 +297,19 @@
         </div>
 
         <div id="laporan" class="content">
-            <h2 style="margin-bottom: 20px;">📊 Laporan Keuangan</h2>
+            <h2>📊 Laporan Keuangan</h2>
             <div class="dashboard">
                 <div class="card">
                     <h3>Surplus/Defisit</h3>
                     <div class="amount" id="surplusDeficit">Rp 0</div>
                 </div>
             </div>
-            <div id="reportDetails" style="margin-top: 30px;"></div>
+            <div id="reportDetails" class="report-section"></div>
         </div>
     </div>
 
     <script>
-        // Data Storage
+        // Data storage
         let transactions = JSON.parse(localStorage.getItem('transactions')) || [];
 
         // Kategori berdasarkan PSAK 45
@@ -268,23 +340,30 @@
             const dateInput = document.getElementById('date');
             
             // Set today's date
-            dateInput.valueAsDate = new Date();
+            const today = new Date().toISOString().split('T')[0];
+            dateInput.value = today;
 
             // Render kategori pertama kali
-            renderCategoryOptions(typeSelect.value || 'Penerimaan');
+            updateCategoryOptions(typeSelect.value);
 
             // Event: ubah tipe -> render ulang kategori
             typeSelect.addEventListener('change', function(e) {
-                renderCategoryOptions(e.target.value);
+                updateCategoryOptions(e.target.value);
             });
 
-            // Load data
+            // Handle form submission
+            document.getElementById('transactionForm').addEventListener('submit', function(e) {
+                e.preventDefault();
+                addTransaction();
+            });
+
+            // Load initial data
             updateDashboard();
             renderTransactions();
         });
 
-        // Render kategori options
-        function renderCategoryOptions(tipe) {
+        // Update category options
+        function updateCategoryOptions(tipe) {
             const categorySelect = document.getElementById('categorySelect');
             categorySelect.innerHTML = '';
             
@@ -295,7 +374,8 @@
             placeholder.selected = true;
             categorySelect.appendChild(placeholder);
 
-            (KATEGORI[tipe] || []).forEach(nama => {
+            const categories = KATEGORI[tipe] || [];
+            categories.forEach(nama => {
                 const opt = document.createElement('option');
                 opt.value = nama;
                 opt.textContent = nama;
@@ -303,17 +383,30 @@
             });
         }
 
-        // Tab switching
-        function showTab(tabName) {
+        // Switch tab function - FIXED VERSION
+        function switchTab(tabName) {
+            // Hide all contents
             const contents = document.querySelectorAll('.content');
+            contents.forEach(content => {
+                content.classList.remove('active');
+            });
+
+            // Remove active class from all tabs
             const tabs = document.querySelectorAll('.tab');
-            
-            contents.forEach(content => content.classList.remove('active'));
-            tabs.forEach(tab => tab.classList.remove('active'));
-            
-            document.getElementById(tabName).classList.add('active');
+            tabs.forEach(tab => {
+                tab.classList.remove('active');
+            });
+
+            // Show selected content
+            const selectedContent = document.getElementById(tabName);
+            if (selectedContent) {
+                selectedContent.classList.add('active');
+            }
+
+            // Add active class to clicked tab
             event.target.classList.add('active');
 
+            // Update data when switching tabs
             if (tabName === 'dashboard') {
                 updateDashboard();
                 renderTransactions();
@@ -322,31 +415,44 @@
             }
         }
 
-        // Form submission
-        document.getElementById('transactionForm').addEventListener('submit', function(e) {
-            e.preventDefault();
-            
+        // Add transaction
+        function addTransaction() {
+            const date = document.getElementById('date').value;
+            const amount = parseInt(document.getElementById('amount').value);
+            const type = document.getElementById('typeSelect').value;
+            const category = document.getElementById('categorySelect').value;
+            const description = document.getElementById('description').value;
+
+            if (!category) {
+                alert('Pilih kategori terlebih dahulu!');
+                return;
+            }
+
             const transaction = {
                 id: Date.now(),
-                date: document.getElementById('date').value,
-                amount: parseInt(document.getElementById('amount').value),
-                type: document.getElementById('typeSelect').value,
-                category: document.getElementById('categorySelect').value,
-                description: document.getElementById('description').value
+                date: date,
+                amount: amount,
+                type: type,
+                category: category,
+                description: description
             };
 
             transactions.push(transaction);
             localStorage.setItem('transactions', JSON.stringify(transactions));
             
-            this.reset();
-            document.getElementById('date').valueAsDate = new Date();
-            renderCategoryOptions(document.getElementById('typeSelect').value);
+            // Reset form
+            document.getElementById('transactionForm').reset();
+            const today = new Date().toISOString().split('T')[0];
+            document.getElementById('date').value = today;
+            updateCategoryOptions(document.getElementById('typeSelect').value);
             
             alert('✅ Transaksi berhasil disimpan!');
-            showTab('dashboard');
-        });
+            
+            // Switch to dashboard to show the new transaction
+            switchTab('dashboard');
+        }
 
-        // Update Dashboard
+        // Update dashboard
         function updateDashboard() {
             const totalIncome = transactions
                 .filter(t => t.type === 'Penerimaan')
@@ -369,17 +475,91 @@
             list.innerHTML = '';
 
             if (transactions.length === 0) {
-                list.innerHTML = '<p style="text-align:center;color:#999;">Belum ada transaksi</p>';
+                list.innerHTML = '<p style="text-align:center;color:#999;padding:20px;">Belum ada transaksi</p>';
                 return;
             }
 
-            transactions.sort((a, b) => new Date(b.date) - new Date(a.date))
-                .slice(0, 10)
-                .forEach(transaction => {
-                    const item = document.createElement('div');
-                    item.className = `transaction-item ${transaction.type === 'Penerimaan' ? 'income' : 'expense'}`;
-                    item.innerHTML = `
-                        <div class="transaction-info">
-                            <h4>${transaction.category}</h4>
-                            <p>${transaction.description}</p>
-                            <p><small>${new Date
+            // Sort by date (newest first)
+            const sorted = [...transactions].sort((a, b) => new Date(b.date) - new Date(a.date));
+            
+            // Show last 10 transactions
+            sorted.slice(0, 10).forEach(transaction => {
+                const item = document.createElement('div');
+                const isIncome = transaction.type === 'Penerimaan';
+                item.className = `transaction-item ${isIncome ? 'income' : 'expense'}`;
+                
+                const date = new Date(transaction.date).toLocaleDateString('id-ID');
+                
+                item.innerHTML = `
+                    <div class="transaction-info">
+                        <h4>${transaction.category}</h4>
+                        <p>${transaction.description}</p>
+                        <p><small>${date}</small></p>
+                    </div>
+                    <div style="display: flex; align-items: center; gap: 10px;">
+                        <span class="transaction-amount ${isIncome ? 'income' : 'expense'}">
+                            ${isIncome ? '+' : '-'} ${formatCurrency(transaction.amount)}
+                        </span>
+                        <button class="btn-delete" onclick="deleteTransaction(${transaction.id})">🗑️</button>
+                    </div>
+                `;
+                list.appendChild(item);
+            });
+        }
+
+        // Delete transaction
+        function deleteTransaction(id) {
+            if (confirm('Yakin ingin menghapus transaksi ini?')) {
+                transactions = transactions.filter(t => t.id !== id);
+                localStorage.setItem('transactions', JSON.stringify(transactions));
+                updateDashboard();
+                renderTransactions();
+            }
+        }
+
+        // Generate report
+        function generateReport() {
+            const totalIncome = transactions
+                .filter(t => t.type === 'Penerimaan')
+                .reduce((sum, t) => sum + t.amount, 0);
+            
+            const totalExpense = transactions
+                .filter(t => t.type === 'Pengeluaran')
+                .reduce((sum, t) => sum + t.amount, 0);
+            
+            const surplus = totalIncome - totalExpense;
+
+            document.getElementById('surplusDeficit').textContent = formatCurrency(surplus);
+
+            // Build report
+            let reportHTML = '<h3>📈 Ringkasan Laporan Keuangan</h3>';
+            reportHTML += '<div class="report-item">';
+            reportHTML += '<span><strong>Total Penerimaan:</strong></span>';
+            reportHTML += `<span style="color: #28a745; font-weight: bold;">${formatCurrency(totalIncome)}</span>`;
+            reportHTML += '</div>';
+            
+            reportHTML += '<div class="report-item">';
+            reportHTML += '<span><strong>Total Pengeluaran:</strong></span>';
+            reportHTML += `<span style="color: #dc3545; font-weight: bold;">${formatCurrency(totalExpense)}</span>`;
+            reportHTML += '</div>';
+            
+            reportHTML += '<div class="report-item" style="border-top: 2px solid #dee2e6; padding-top: 15px; margin-top: 15px;">';
+            reportHTML += '<span><strong>Surplus/Defisit:</strong></span>';
+            const surplusClass = surplus >= 0 ? 'color: #28a745;' : 'color: #dc3545;';
+            reportHTML += `<span style="${surplusClass} font-weight: bold;">${formatCurrency(surplus)}</span>`;
+            reportHTML += '</div>';
+
+            document.getElementById('reportDetails').innerHTML = reportHTML;
+        }
+
+        // Format currency
+        function formatCurrency(amount) {
+            return new Intl.NumberFormat('id-ID', {
+                style: 'currency',
+                currency: 'IDR',
+                minimumFractionDigits: 0
+            }).format(amount);
+        }
+    </script>
+</body>
+</html>
