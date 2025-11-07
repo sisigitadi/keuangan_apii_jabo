@@ -103,12 +103,12 @@
             box-shadow: 0 6px 16px rgba(255, 193, 7, 0.5);
             transform: translateY(-2px);
         }
-        .role-viewer {
+        .role-user {
             background: #4CAF50;
             color: white;
             box-shadow: 0 4px 12px rgba(76, 175, 80, 0.3);
         }
-        .role-viewer:hover {
+        .role-user:hover {
             background: #388E3C;
             box-shadow: 0 6px 16px rgba(76, 175, 80, 0.5);
             transform: translateY(-2px);
@@ -156,13 +156,15 @@
         .form-group label { display: block; margin-bottom: 8px; font-weight: 600; color: #D4AF37; }
         .form-group input, .form-group select, .form-group textarea { width: 100%; padding: 12px; border: 2px solid #3a3a3a; border-radius: 8px; font-size: 1em; background: #2d2d2d; color: #f0f0f0; transition: border-color 0.3s; }
         .form-group input:focus, .form-group select:focus, .form-group textarea:focus { outline: none; border-color: #B8860B; box-shadow: 0 0 8px rgba(184, 134, 11, 0.3); }
+        .password-wrapper { position: relative; }
+        .password-wrapper input { padding-right: 45px; }
+        .toggle-password { position: absolute; right: 12px; top: 50%; transform: translateY(-50%); background: none; border: none; color: #D4AF37; cursor: pointer; font-size: 1.2em; transition: all 0.3s; }
+        .toggle-password:hover { transform: translateY(-50%) scale(1.2); }
         .btn { background: linear-gradient(135deg, #B8860B 0%, #8B6914 100%); color: white; padding: 12px 30px; border: none; border-radius: 8px; font-size: 1em; font-weight: 600; cursor: pointer; transition: transform 0.2s, box-shadow 0.2s; box-shadow: 0 4px 12px rgba(184, 134, 11, 0.3); }
         .btn:hover { transform: translateY(-2px); box-shadow: 0 6px 16px rgba(184, 134, 11, 0.5); }
         .btn-secondary { background: #3a3a3a; color: #D4AF37; padding: 10px 15px; font-size: 0.9em; margin-left: 10px; }
         .btn-success { background: linear-gradient(135deg, #4CAF50 0%, #388E3C 100%); }
-        .btn-edit { background: #2196F3; padding: 6px 12px; font-size: 0.85em; margin-left: 5px; }
-        .btn-edit:hover { background: #0b7dda; }
-        .btn-cancel { background: #6c757d; padding: 6px 12px; font-size: 0.85em; margin-left: 5px; }
+        .btn-sm { padding: 6px 12px; font-size: 0.85em; }
         .transaction-item { background: #2d2d2d; padding: 15px; margin-bottom: 10px; border-radius: 8px; display: grid; grid-template-columns: 1fr auto; gap: 10px; align-items: center; border-left: 4px solid #B8860B; }
         .transaction-item.income { border-left-color: #4CAF50; }
         .transaction-item.expense { border-left-color: #FF6B6B; }
@@ -171,8 +173,11 @@
         .transaction-amount { font-size: 1.2em; font-weight: bold; white-space: nowrap; }
         .transaction-amount.income { color: #4CAF50; }
         .transaction-amount.expense { color: #FF6B6B; }
+        .transaction-actions { display: flex; gap: 6px; align-items: center; }
         .btn-delete { background: #FF6B6B; color: white; border: none; padding: 8px 12px; border-radius: 5px; cursor: pointer; font-size: 0.9em; }
         .btn-delete:hover { background: #E63946; }
+        .btn-edit { background: #4CAF50; color: white; border: none; padding: 8px 12px; border-radius: 5px; cursor: pointer; font-size: 0.9em; }
+        .btn-edit:hover { background: #388E3C; }
         .table { width: 100%; border-collapse: collapse; margin-top: 20px; font-size: 0.95em; }
         .table th { background: #2d2d2d; padding: 12px; text-align: left; font-weight: 600; border-bottom: 2px solid #B8860B; color: #D4AF37; }
         .table td { padding: 12px; border-bottom: 1px solid #3a3a3a; color: #f0f0f0; }
@@ -180,6 +185,7 @@
         .alert { padding: 15px; border-radius: 8px; margin-bottom: 20px; }
         .alert-info { background: rgba(76, 175, 80, 0.15); color: #4CAF50; border: 1px solid rgba(76, 175, 80, 0.3); }
         h2 { color: #D4AF37; margin-bottom: 20px; font-size: 1.5em; text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5); }
+        h3 { color: #D4AF37; margin-bottom: 15px; }
         .login-container { max-width: 600px; margin: 0 auto; padding: 20px; display: flex; align-items: center; justify-content: center; min-height: 100vh; position: relative; }
         .login-box { background: #2d2d2d; padding: 40px 30px; border-radius: 15px; box-shadow: 0 20px 60px rgba(184, 134, 11, 0.3); width: 100%; border: 2px solid #B8860B; }
         .login-header { display: flex; align-items: center; gap: 15px; margin-bottom: 30px; }
@@ -220,6 +226,29 @@
         .email-tooltip { position: absolute; bottom: 130%; right: 0; background: rgba(26, 26, 26, 0.95); color: #D4AF37; padding: 8px 12px; border-radius: 6px; font-size: 0.85em; white-space: nowrap; opacity: 0; visibility: hidden; transition: all 0.3s; pointer-events: none; box-shadow: 0 4px 12px rgba(0,0,0,0.5), 0 0 20px rgba(184, 134, 11, 0.3); border: 1px solid #B8860B; }
         .email-tooltip::after { content: ''; position: absolute; top: 100%; right: 10px; border: 5px solid transparent; border-top-color: rgba(26, 26, 26, 0.95); }
         .email-icon:hover .email-tooltip { opacity: 1; visibility: visible; }
+        .role-selector { display: grid; grid-template-columns: repeat(auto-fit, minmax(120px, 1fr)); gap: 10px; margin-bottom: 20px; }
+        .role-option { position: relative; }
+        .role-option input[type="radio"] { display: none; }
+        .role-option label { 
+            display: block; 
+            padding: 15px; 
+            text-align: center; 
+            border: 2px solid #3a3a3a; 
+            border-radius: 8px; 
+            cursor: pointer; 
+            transition: all 0.3s;
+            background: #1a1a1a;
+            color: #999;
+            font-weight: 600;
+        }
+        .role-option input[type="radio"]:checked + label {
+            border-color: #B8860B;
+            background: #B8860B;
+            color: white;
+        }
+        .role-option label:hover {
+            border-color: #D4AF37;
+        }
         .report-filter { background: #2d2d2d; padding: 20px; border-radius: 12px; margin-bottom: 25px; border: 1px solid #3a3a3a; }
         .filter-buttons { display: flex; gap: 10px; margin-bottom: 20px; flex-wrap: wrap; }
         .filter-btn { padding: 10px 20px; border: 2px solid #3a3a3a; background: transparent; color: #999; border-radius: 8px; cursor: pointer; font-size: 0.95em; font-weight: 600; transition: all 0.3s; }
@@ -235,7 +264,9 @@
         .summary-card .value { color: #D4AF37; font-size: 1.8em; font-weight: bold; }
         .summary-card .value.income { color: #4CAF50; }
         .summary-card .value.expense { color: #FF6B6B; }
-        @media (max-width: 767px) { .tab.hidden { display: none !important; } }
+        @media (max-width: 1199px) { .header { padding: 18px; gap: 12px; } .header-logo { width: 85px; height: 85px; } .header-title .title-line-1 { font-size: 1.0em; } .header-title .title-line-2 { font-size: 0.9em; } .header-title .title-line-3 { font-size: 0.85em; } .content { padding: 20px; } .header-right { padding: 10px 12px; gap: 0; } .user-section { gap: 10px; } .footer { padding: 10px 14px; font-size: 0.75em; bottom: 12px; right: 15px; } }
+        @media (max-width: 767px) { body { padding: 0; } .container { margin: 0; border-radius: 0; } .header { flex-direction: column; align-items: flex-start; padding: 15px; gap: 12px; } .header-left { width: 100%; } .header-logo { width: 75px; height: 75px; } .header-title .title-line-1 { font-size: 0.9em; } .header-title .title-line-2 { font-size: 0.8em; } .header-title .title-line-3 { font-size: 0.75em; } .header-right { width: 100%; flex-direction: column; align-items: flex-start; border: none; padding: 12px 0; gap: 8px; } .user-section { border-right: none; padding-right: 0; width: 100%; } .logout-section { width: 100%; border-left: none; padding-left: 0; } .logout-btn { width: 100%; justify-content: center; } .tab { font-size: 0.85em; padding: 10px 12px; } .content { padding: 15px; } .dashboard { grid-template-columns: 1fr; } .footer { padding: 10px 12px; font-size: 0.7em; bottom: 10px; right: 10px; } .role-selector { grid-template-columns: 1fr; } }
+        @media (max-width: 480px) { .header { padding: 12px; gap: 10px; } .header-logo { width: 65px; height: 65px; } .header-title .title-line-1 { font-size: 0.8em; } .header-title .title-line-2 { font-size: 0.75em; } .header-title .title-line-3 { font-size: 0.7em; } .tab { font-size: 0.8em; padding: 8px 10px; } .content { padding: 12px; } .card { padding: 15px; } .card .amount { font-size: 1.5em; } .form-group input { font-size: 16px; } .btn { width: 100%; } .table { font-size: 0.8em; } h2 { font-size: 1.2em; } .user-icon { font-size: 1em; } .user-name { font-size: 0.85em; } .logout-btn { padding: 6px 10px; font-size: 0.75em; } .footer { padding: 8px 10px; font-size: 0.65em; bottom: 8px; right: 8px; } .user-role { padding: 4px 8px; font-size: 0.7em; } }
     </style>
 </head>
 <body id="appBody">
@@ -268,31 +299,45 @@
 
             <form id="loginForm" class="login-form">
                 <div class="form-group">
-                    <label>Username</label>
-                    <input type="text" id="loginUsername" placeholder="Masukkan username" required>
+                    <label>Pilih Role</label>
+                    <div class="role-selector">
+                        <div class="role-option">
+                            <input type="radio" id="roleAdmin" name="loginRole" value="Admin" checked>
+                            <label for="roleAdmin">👑 Admin</label>
+                        </div>
+                        <div class="role-option">
+                            <input type="radio" id="roleManager" name="loginRole" value="Manager">
+                            <label for="roleManager">📋 Manager</label>
+                        </div>
+                        <div class="role-option">
+                            <input type="radio" id="roleUser" name="loginRole" value="User">
+                            <label for="roleUser">👁️ User</label>
+                        </div>
+                    </div>
                 </div>
+
+                <div class="form-group">
+                    <label>Username</label>
+                    <input type="text" id="loginUsername" placeholder="admin" required>
+                </div>
+
                 <div class="form-group">
                     <label>Password</label>
-                    <input type="password" id="loginPassword" placeholder="Masukkan password" required>
+                    <div class="password-wrapper">
+                        <input type="password" id="loginPassword" placeholder="admin" required>
+                        <button type="button" class="toggle-password" onclick="toggleLoginPassword()">👁️</button>
+                    </div>
                 </div>
-                <div class="form-group">
-                    <label>Role</label>
-                    <select id="loginRole" required>
-                        <option value="">-- Pilih Role --</option>
-                        <option value="Admin">👑 Admin</option>
-                        <option value="Manager">📋 Manager</option>
-                        <option value="Viewer">👁️ Viewer</option>
-                    </select>
-                </div>
+
                 <button type="submit" class="btn" style="width: 100%;">🔓 Login</button>
             </form>
 
             <div style="margin-top: 30px; padding-top: 20px; border-top: 1px solid #3a3a3a;">
                 <h3 style="margin-top: 0; font-size: 0.95em; color: #D4AF37;">Test Credentials:</h3>
-                <p style="font-size: 0.85em; margin-bottom: 0; line-height: 1.6; color: #999;">
-                    <strong>Admin:</strong> admin / admin / Admin<br>
-                    <strong>Manager:</strong> manager / manager / Manager<br>
-                    <strong>Viewer:</strong> viewer / viewer / Viewer
+                <p style="font-size: 0.85em; margin-bottom: 0; line-height: 1.8; color: #999;">
+                    <strong>Admin:</strong> admin / admin<br>
+                    <strong>Manager:</strong> manager / manager<br>
+                    <strong>User:</strong> user / user
                 </p>
             </div>
         </div>
@@ -328,9 +373,9 @@
         </div>
         <div class="tabs">
             <button class="tab active" onclick="switchTab('dashboard')">📊 Dashboard</button>
-            <button class="tab" id="tabTransaksi" onclick="switchTab('transaksi')">➕ Transaksi</button>
+            <button class="tab" onclick="switchTab('transaksi')">➕ Transaksi</button>
             <button class="tab" onclick="switchTab('laporan')">📈 Laporan</button>
-            <button class="tab" id="tabSettings" onclick="switchTab('settings')">⚙️ Settings</button>
+            <button class="tab" onclick="switchTab('settings')">⚙️ Settings</button>
         </div>
         <div class="main-content">
             <div id="dashboard" class="content active">
@@ -420,7 +465,7 @@
         let currentUser = null, transactions = [], users = [
             { id: 1, username: 'admin', password: 'admin', role: 'Admin' },
             { id: 2, username: 'manager', password: 'manager', role: 'Manager' },
-            { id: 3, username: 'viewer', password: 'viewer', role: 'Viewer' }
+            { id: 3, username: 'user', password: 'user', role: 'User' }
         ], reportType = 'daily';
         const KATEGORI = {
             Penerimaan: ['Sumbangan/Donasi', 'Hibah/Grant', 'Pendapatan Program', 'Pendapatan Investasi', 'Pendapatan Lainnya'],
@@ -429,8 +474,69 @@
         const roleIcons = {
             'Admin': '👑',
             'Manager': '📋',
-            'Viewer': '👁️'
+            'User': '👁️'
         };
+
+        function toggleLoginPassword() {
+            const input = document.getElementById('loginPassword');
+            const btn = document.querySelector('.toggle-password');
+            if (input.type === 'password') {
+                input.type = 'text';
+                btn.textContent = '👁️‍🗨️';
+            } else {
+                input.type = 'password';
+                btn.textContent = '👁️';
+            }
+        }
+
+        function canAccessDashboard() {
+            return currentUser.role === 'Admin' || currentUser.role === 'Manager';
+        }
+
+        function canAccessTransaksi() {
+            return currentUser.role === 'Admin' || currentUser.role === 'Manager';
+        }
+
+        function canAccessSettings() {
+            return currentUser.role === 'Admin';
+        }
+
+        function canEditTransaction(transaction) {
+            if (currentUser.role === 'Admin') return true;
+            if (currentUser.role === 'Manager') return transaction.user === currentUser.username;
+            return false;
+        }
+
+        function canDeleteTransaction(transaction) {
+            if (currentUser.role === 'Admin') return true;
+            if (currentUser.role === 'Manager') return transaction.user === currentUser.username;
+            return false;
+        }
+
+        function updateTabVisibility() {
+            const dashboardTab = document.querySelector('.tab');
+            const transaksiTab = document.querySelectorAll('.tab')[1];
+            const settingsTab = document.querySelectorAll('.tab')[3];
+
+            if (!canAccessDashboard()) {
+                document.getElementById('dashboard').style.display = 'none';
+                dashboardTab.classList.add('hidden');
+            }
+            if (!canAccessTransaksi()) {
+                document.getElementById('transaksi').style.display = 'none';
+                transaksiTab.classList.add('hidden');
+            }
+            if (!canAccessSettings()) {
+                document.getElementById('settings').style.display = 'none';
+                settingsTab.classList.add('hidden');
+            }
+
+            // Jika tab pertama tidak bisa diakses, switch ke laporan
+            if (!canAccessDashboard()) {
+                switchTab('laporan');
+                document.querySelectorAll('.tab')[2].classList.add('active');
+            }
+        }
 
         document.addEventListener('DOMContentLoaded', function() {
             loadFromStorage();
@@ -442,34 +548,26 @@
 
             document.getElementById('loginForm').addEventListener('submit', function(e) {
                 e.preventDefault();
+                const role = document.querySelector('input[name="loginRole"]:checked').value;
                 const username = document.getElementById('loginUsername').value.trim();
                 const password = document.getElementById('loginPassword').value.trim();
-                const role = document.getElementById('loginRole').value;
-
-                if (!role) {
-                    document.getElementById('loginError').textContent = '❌ Pilih role terlebih dahulu!';
-                    document.getElementById('loginError').style.display = 'block';
-                    return;
-                }
-
                 const user = users.find(u => u.username === username && u.password === password && u.role === role);
                 if (user) {
-                    currentUser = { ...user };
-                    localStorage.setItem('currentUser', JSON.stringify(currentUser));
+                    currentUser = user;
+                    localStorage.setItem('currentUser', JSON.stringify(user));
                     document.getElementById('loginScreen').style.display = 'none';
                     document.getElementById('mainApp').style.display = 'flex';
                     document.getElementById('currentUser').textContent = user.username.toUpperCase();
                     const icon = roleIcons[user.role] || '•';
                     document.getElementById('currentRole').innerHTML = `<span class="user-role role-${user.role.toLowerCase()}">${icon} ${user.role}</span>`;
-                    updateAccessControl();
+                    updateTabVisibility();
                     updateDashboard();
                     renderTransactions();
                 } else {
-                    document.getElementById('loginError').textContent = '❌ Username, password, atau role salah!';
+                    document.getElementById('loginError').textContent = '❌ Username, password, atau role tidak sesuai!';
                     document.getElementById('loginError').style.display = 'block';
                 }
             });
-
             document.getElementById('typeSelect').addEventListener('change', function() {
                 const select = document.getElementById('categorySelect');
                 select.innerHTML = '<option value="">Pilih kategori</option>';
@@ -480,10 +578,8 @@
                     select.appendChild(opt);
                 });
             });
-
             document.getElementById('date').valueAsDate = new Date();
             document.getElementById('typeSelect').dispatchEvent(new Event('change'));
-
             document.getElementById('transactionForm').addEventListener('submit', function(e) {
                 e.preventDefault();
                 const trans = {
@@ -494,7 +590,6 @@
                     category: document.getElementById('categorySelect').value,
                     description: document.getElementById('description').value,
                     user: currentUser.username,
-                    userId: currentUser.id,
                     timestamp: new Date().toISOString()
                 };
                 transactions.push(trans);
@@ -503,20 +598,10 @@
                 document.getElementById('date').valueAsDate = new Date();
                 alert('✅ Transaksi disimpan!');
                 switchTab('dashboard');
+                renderTransactions();
             });
-
             renderUsersList();
         });
-
-        function updateAccessControl() {
-            const isAdmin = currentUser.role === 'Admin';
-            const isManager = currentUser.role === 'Manager';
-            const isViewer = currentUser.role === 'Viewer';
-
-            // Hide/Show Tabs
-            document.getElementById('tabTransaksi').classList.toggle('hidden', isViewer);
-            document.getElementById('tabSettings').classList.toggle('hidden', !isAdmin);
-        }
 
         function initYearOptions() {
             const select = document.getElementById('reportYear');
@@ -572,14 +657,12 @@
                     html += `<div class="transaction-item ${t.type === 'Penerimaan' ? 'income' : 'expense'}">
                         <div class="transaction-info">
                             <h4>${t.category}</h4>
-                            <p>${t.description} | User: <strong>${t.user}</strong></p>
-                            <p><small>${new Date(t.date).toLocaleDateString('id-ID')}</small></p>
+                            <p>${t.description}</p>
+                            <p><small>${new Date(t.date).toLocaleDateString('id-ID')} | ${t.user}</small></p>
                         </div>
-                        <div style="display: flex; gap: 8px; align-items: center;">
-                            <span class="transaction-amount ${t.type === 'Penerimaan' ? 'income' : 'expense'}">
-                                ${t.type === 'Penerimaan' ? '+' : '-'} ${formatCurrency(t.amount)}
-                            </span>
-                        </div>
+                        <span class="transaction-amount ${t.type === 'Penerimaan' ? 'income' : 'expense'}">
+                            ${t.type === 'Penerimaan' ? '+' : '-'} ${formatCurrency(t.amount)}
+                        </span>
                     </div>`;
                 });
             }
@@ -592,26 +675,27 @@
             document.getElementById('loginScreen').style.display = 'flex';
             document.getElementById('mainApp').style.display = 'none';
             document.getElementById('loginForm').reset();
+            document.querySelectorAll('.tab').forEach(t => t.classList.remove('hidden'));
         }
-
         function switchTab(tabName) {
             document.querySelectorAll('.content').forEach(c => c.style.display = 'none');
-            document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
-            document.getElementById(tabName).style.display = 'block';
-            event.target.classList.add('active');
-            if (tabName === 'dashboard') {
-                updateDashboard();
-                renderTransactions();
-            } else if (tabName === 'laporan') {
-                updateReport();
+            document.querySelectorAll('.tab:not(.hidden)').forEach(t => t.classList.remove('active'));
+            const tab = document.getElementById(tabName);
+            if (tab) {
+                tab.style.display = 'block';
+                event.target.classList.add('active');
+                if (tabName === 'dashboard') {
+                    updateDashboard();
+                    renderTransactions();
+                } else if (tabName === 'laporan') {
+                    updateReport();
+                }
             }
         }
-
         function switchSubTab(tabName) {
             document.querySelectorAll('.sub-content').forEach(c => c.style.display = 'none');
             document.getElementById(tabName).style.display = 'block';
         }
-
         function updateDashboard() {
             const income = transactions.filter(t => t.type === 'Penerimaan').reduce((s, t) => s + t.amount, 0);
             const expense = transactions.filter(t => t.type === 'Pengeluaran').reduce((s, t) => s + t.amount, 0);
@@ -620,7 +704,6 @@
             document.getElementById('totalIncome').textContent = formatCurrency(income);
             document.getElementById('totalExpense').textContent = formatCurrency(expense);
         }
-
         function renderTransactions() {
             const list = document.getElementById('transactionList');
             list.innerHTML = '';
@@ -629,53 +712,40 @@
                 return;
             }
             [...transactions].sort((a,b) => new Date(b.date) - new Date(a.date)).slice(0, 10).forEach(t => {
-                const canEdit = currentUser.role === 'Admin' || (currentUser.role === 'Manager' && t.userId === currentUser.id);
+                const canEdit = canEditTransaction(t);
+                const canDelete = canDeleteTransaction(t);
                 const item = document.createElement('div');
                 item.className = `transaction-item ${t.type === 'Penerimaan' ? 'income' : 'expense'}`;
+                let actions = '<div class="transaction-actions">';
+                actions += `<span class="transaction-amount ${t.type === 'Penerimaan' ? 'income' : 'expense'}">
+                    ${t.type === 'Penerimaan' ? '+' : '-'} ${formatCurrency(t.amount)}
+                </span>`;
+                if (canEdit) actions += `<button class="btn-edit btn-sm" onclick="editTransaction(${t.id})">✏️ Edit</button>`;
+                if (canDelete) actions += `<button class="btn-delete btn-sm" onclick="deleteTransaction(${t.id})">🗑️ Hapus</button>`;
+                actions += '</div>';
+
                 item.innerHTML = `
                     <div class="transaction-info">
                         <h4>${t.category}</h4>
-                        <p>${t.description} | User: <strong>${t.user}</strong></p>
-                        <p><small>${new Date(t.date).toLocaleDateString('id-ID')}</small></p>
+                        <p>${t.description}</p>
+                        <p><small>${new Date(t.date).toLocaleDateString('id-ID')} | ${t.user}</small></p>
                     </div>
-                    <div style="display: flex; gap: 8px; align-items: center;">
-                        <span class="transaction-amount ${t.type === 'Penerimaan' ? 'income' : 'expense'}">
-                            ${t.type === 'Penerimaan' ? '+' : '-'} ${formatCurrency(t.amount)}
-                        </span>
-                        ${canEdit ? `<button class="btn-edit" onclick="editTransaction(${t.id})">✏️ Edit</button>` : ''}
-                        ${currentUser.role === 'Admin' ? `<button class="btn-delete" onclick="deleteTransaction(${t.id})">🗑️ Hapus</button>` : ''}
-                    </div>
+                    ${actions}
                 `;
                 list.appendChild(item);
             });
         }
-
         function editTransaction(id) {
-            const trans = transactions.find(t => t.id === id);
-            if (!trans) return;
-
-            const newAmount = prompt('Nominal baru (Rp):', trans.amount);
-            if (!newAmount) return;
-
-            const newDesc = prompt('Keterangan baru:', trans.description);
-            if (!newDesc) return;
-
-            trans.amount = parseInt(newAmount);
-            trans.description = newDesc;
-            saveToStorage();
-            renderTransactions();
-            alert('✅ Transaksi diperbarui!');
+            alert('✏️ Edit transaksi belum diimplementasikan. Fitur ini akan datang di update berikutnya.');
         }
-
         function deleteTransaction(id) {
-            if (confirm('Hapus transaksi ini?')) {
+            if (confirm('Yakin hapus transaksi ini?')) {
                 transactions = transactions.filter(t => t.id !== id);
                 saveToStorage();
                 renderTransactions();
-                alert('✅ Transaksi dihapus!');
+                updateDashboard();
             }
         }
-
         function renderUsersList() {
             const tbody = document.getElementById('usersList');
             tbody.innerHTML = '';
@@ -686,31 +756,18 @@
                     <td><strong>${u.username}</strong></td>
                     <td><span class="user-role role-${u.role.toLowerCase()}">${icon} ${u.role}</span></td>
                     <td><code>${u.password}</code></td>
-                    <td>${currentUser && currentUser.role === 'Admin' && u.username !== currentUser.username ? `<button class="btn-delete" onclick="deleteUser(${u.id})">Hapus</button>` : 'N/A'}</td>
+                    <td>${currentUser && currentUser.role === 'Admin' && u.username !== currentUser.username ? `<button class="btn-delete" onclick="users=users.filter(x=>x.id!=={u.id});saveToStorage();renderUsersList()">Hapus</button>` : 'N/A'}</td>
                 `;
                 tbody.appendChild(tr);
             });
         }
-
-        function deleteUser(id) {
-            if (confirm('Hapus user ini?')) {
-                users = users.filter(u => u.id !== id);
-                saveToStorage();
-                renderUsersList();
-                alert('✅ User dihapus!');
-            }
-        }
-
         function showAddUserForm() {
-            const username = prompt('Username baru:');
+            const username = prompt('Username:');
             if (!username) return;
             const password = prompt('Password:');
             if (!password) return;
-            const role = prompt('Role (Admin/Manager/Viewer):');
-            if (!role || !['Admin', 'Manager', 'Viewer'].includes(role)) {
-                alert('Role harus Admin, Manager, atau Viewer');
-                return;
-            }
+            const role = prompt('Role (Admin/Manager/User):');
+            if (!role) return;
             if (users.find(u => u.username === username)) {
                 alert('Username sudah ada');
                 return;
@@ -718,15 +775,12 @@
             users.push({ id: Date.now(), username, password, role });
             saveToStorage();
             renderUsersList();
-            alert('✅ User ditambahkan!');
         }
-
         function exportToJSON() {
             const data = {
                 transactions: transactions,
                 exportDate: new Date().toISOString(),
-                exportedBy: currentUser.username,
-                exporterRole: currentUser.role
+                exportedBy: currentUser.username
             };
             const json = JSON.stringify(data, null, 2);
             const blob = new Blob([json], { type: 'application/json' });
@@ -735,7 +789,6 @@
             a.download = `export_${new Date().toISOString().split('T')[0]}.json`;
             a.click();
         }
-
         function clearAllData() {
             if (confirm('Yakin hapus semua data? Tidak bisa dikembalikan!')) {
                 transactions = [];
@@ -745,12 +798,10 @@
                 alert('✅ Semua data dihapus');
             }
         }
-
         function saveToStorage() {
             localStorage.setItem('transactions', JSON.stringify(transactions));
             localStorage.setItem('users', JSON.stringify(users));
         }
-
         function loadFromStorage() {
             const t = localStorage.getItem('transactions');
             const u = localStorage.getItem('users');
@@ -768,11 +819,10 @@
                     document.getElementById('mainApp').style.display = 'flex';
                     const icon = roleIcons[currentUser.role] || '•';
                     document.getElementById('currentRole').innerHTML = `<span class="user-role role-${currentUser.role.toLowerCase()}">${icon} ${currentUser.role}</span>`;
-                    updateAccessControl();
+                    updateTabVisibility();
                 } catch (e) {}
             }
         }
-
         function formatCurrency(amount) {
             return new Intl.NumberFormat('id-ID', { style: 'currency', currency: 'IDR', minimumFractionDigits: 0 }).format(amount);
         }
