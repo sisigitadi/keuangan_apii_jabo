@@ -616,7 +616,25 @@
         function exportToJSON() { const data = { transactions, exportDate: new Date().toISOString(), exportedBy: currentUser.username }; const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' }); const a = document.createElement('a'); a.href = URL.createObjectURL(blob); a.download = 'export_' + new Date().toISOString().split('T')[0] + '.json'; a.click(); }
         function clearAllData() { if (confirm('Yakin hapus semua data? Tidak bisa dikembalikan!')) { transactions = []; saveToStorage(); updateDashboard(); renderTransactions(); alert('Semua data dihapus'); } }
         function saveToStorage() { localStorage.setItem('transactions', JSON.stringify(transactions)); localStorage.setItem('users', JSON.stringify(users)); }
-        function loadFromStorage() { const t = localStorage.getItem('transactions'); const u = localStorage.getItem('users'); transactions = t ? JSON.parse(t) : []; if (!u) saveToStorage(); else users = JSON.parse(u); const saved = localStorage.getItem('currentUser'); if (saved) { try { currentUser = JSON.parse(saved); document.getElementById('loginScreen').style.display = 'none'; document.getElementById('mainApp').style.display = 'flex'; updateTabVisibility(); } catch(e) {} } }
+        function loadFromStorage() { 
+            const t = localStorage.getItem('transactions'); 
+            const u = localStorage.getItem('users'); 
+            transactions = t ? JSON.parse(t) : []; 
+            if (!u) saveToStorage(); 
+            else users = JSON.parse(u); 
+            const saved = localStorage.getItem('currentUser'); 
+            if (saved) { 
+                try { 
+                    currentUser = JSON.parse(saved); 
+                    document.getElementById('loginScreen').style.display = 'none'; 
+                    document.getElementById('mainApp').style.display = 'flex'; 
+                    document.getElementById('currentUser').textContent = currentUser.username.toUpperCase(); 
+                    const icon = roleIcons[currentUser.role] || ''; 
+                    document.getElementById('currentRole').innerHTML = '<span class="user-role role-' + currentUser.role.toLowerCase() + '">' + icon + ' ' + currentUser.role + '</span>'; 
+                    updateTabVisibility(); 
+                } catch(e) {} 
+            } 
+        }
         function formatCurrency(amount) { return new Intl.NumberFormat('id-ID', { style: 'currency', currency: 'IDR', minimumFractionDigits: 0 }).format(amount); }
     </script>
 </body>
