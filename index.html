@@ -637,5 +637,25 @@
         }
         function formatCurrency(amount) { return new Intl.NumberFormat('id-ID', { style: 'currency', currency: 'IDR', minimumFractionDigits: 0 }).format(amount); }
     </script>
+
+<div id="editModal" class="modal" style="display:none;position:fixed;z-index:9999;top:0;left:0;width:100vw;height:100vh;background:rgba(0,0,0,0.4);align-items:center;justify-content:center;">
+  <div style="background:#232323;color:#eee;padding:18px 26px 15px 26px;border-radius:8px;min-width:320px;max-width:99vw;position:relative;box-shadow:0 2px 8px #111;">
+    <h3>Edit Transaksi</h3>
+    <form id="editForm">
+      <input type="hidden" id="editId" name="editId"/>
+      <label>Jenis:</label><br>
+      <select id="editType" name="editType"><option value="penerimaan">Penerimaan</option><option value="pengeluaran">Pengeluaran</option></select><br>
+      <label>Deskripsi:</label><br>
+      <input type="text" id="editDesc" name="editDesc" style="width:100%;margin-bottom:3px;"/><br>
+      <label>Jumlah (Rp):</label><br>
+      <input type="number" id="editAmount" name="editAmount" style="width:100%;margin-bottom:3px;"/><br>
+      <div style="text-align:right;margin-top:8px;">
+        <button type="button" onclick="closeEditModal()" style="margin-right:15px;">Batal</button>
+        <button type="submit">Simpan Perubahan</button>
+      </div>
+    </form>
+  </div>
+</div>
+
 </body>
 </html>
